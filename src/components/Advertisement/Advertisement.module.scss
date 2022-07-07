@@ -1,0 +1,22 @@
+.advertiseCover {
+  width: 950px;
+  height: 300px;
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+  img:first-of-type,
+  img:last-of-type {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: calc(50% - 25px / 2);
+  }
+  img:nth-child(2) {
+    width: 950px;
+    height: 300px;
+    object-fit: cover;
+  }
+  img:last-of-type {
+    right: 0;
+  }
+}
