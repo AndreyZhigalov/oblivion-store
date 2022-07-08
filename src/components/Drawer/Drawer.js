@@ -1,7 +1,14 @@
 import styles from "./Drawer.module.scss"
 import { DrawerItem } from "./DrawerItem/DrawerItem";
+import axios from "axios";
+import React from "react";
 
 export const Drawer = (props) => {
+
+    const deleteItem = (item) => {
+        axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${item.dbID}`)
+        props.removeItem(prev => prev.filter(i => i.id !== item.id))
+    }
 
     return (
         <div className={styles.overlay} >
@@ -10,10 +17,11 @@ export const Drawer = (props) => {
                 <div className={styles.cartBlock}>
                     {props.drawerItems.map(item =>
                         <DrawerItem
+                            key={item.id}
                             itemImage={item.itemImage}
                             title={item.title}
                             price={item.price}
-                            removeItem={() => { props.removeItem(props.drawerItems.filter(i => i.id !== item.id)) }}
+                            removeItem={() => { deleteItem(item) }}
                         />)}
                 </div>
                 <div className={styles.totalBlock}>

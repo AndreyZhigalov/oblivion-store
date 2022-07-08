@@ -1,6 +1,8 @@
+import React from "react";
 import styles from "./Header.module.scss"
 
 export const Header = (props) => {
+
     return (
         <header className={styles.header}>
             <div className={styles.logoContainer}>
@@ -9,7 +11,7 @@ export const Header = (props) => {
             </div>
             <div className={styles.search}>
                 <img src="/img/icons/search.svg" alt="search" />
-                <input placeholder="Поиск..." />
+                <input onChange={props.getInputValue} value={props.searchInput} placeholder="Поиск..." />
             </div>
             <ul>
                 <li >
