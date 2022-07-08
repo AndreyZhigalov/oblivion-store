@@ -1,41 +1,65 @@
 import { Advertisement } from "./components/Advertisement/AdvertIsement";
 import { Drawer } from "./components/Drawer/Drawer";
 import { Header } from "./components/Header/Header";
-import { ItemCard } from "./components/ItemCard/ItemCard";
 import axios from 'axios'
 import React, { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom"
+import { Catalog } from "./pages/Catalog";
+import { Favorites } from "./pages/Favorites";
 
 
 function App() {
+  const [bagsList, setBagsList] = useState([])
+  const [notesList, setNotesList] = useState([])
   const [drawerOpened, setDrawerOpened] = useState(false)
-  const [catalogItems, setCatalogItems] = useState([])
   const [drawerItems, setDrawerItems] = useState([])
+  const [favoriteItems, setFavoriteItems] = useState([])
   const [searchInput, setSearchInput] = React.useState("")
 
   const toggleDrawer = () => {
     setDrawerOpened(!drawerOpened)
   }
+
   useEffect(() => {
     axios.get('https://62c57e71134fa108c25402bf.mockapi.io/bags')
-      .then(resp => setCatalogItems(resp.data))
+      .then(resp => setBagsList(resp.data))
+    axios.get('https://62c57e71134fa108c25402bf.mockapi.io/notes')
+      .then(resp => setNotesList(resp.data))
     axios.get('https://62c57e71134fa108c25402bf.mockapi.io/drawer')
       .then(res => setDrawerItems(res.data))
+    axios.get('https://62c57e71134fa108c25402bf.mockapi.io/favorites')
+      .then(res => setFavoriteItems(res.data))
   }, [])
 
-  const addToDrawer = (obj) => {
-    let itemChecker = drawerItems.filter(item => item.id === obj.id)[0]
-    if (itemChecker) {
-      axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${itemChecker.dbID}`)
-      setDrawerItems(prev => prev.filter(i => i.id !== obj.id))
-    } else {
-      axios.post('https://62c57e71134fa108c25402bf.mockapi.io/drawer', obj).then(() => {
-        axios.get('https://62c57e71134fa108c25402bf.mockapi.io/drawer')
-          .then(res => setDrawerItems(prev => [...prev, res.data[res.data.length - 1]]))
+  const addToDrawer = async (obj) => {
+    try {
+      let drawerChecker = drawerItems.find(item => item.id === obj.id)
+      if (drawerChecker) {
+        axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${drawerChecker.drawerID}`)
+        setDrawerItems(prev => prev.filter(item => item.id !== obj.id))
+      } else {
+        let { data } = await axios.post('https://62c57e71134fa108c25402bf.mockapi.io/drawer', obj)
+        setDrawerItems(prev => [...prev, data])
       }
-      )
+    } catch (error) {
+      alert("Предмет не был добавлен в корзину")
     }
   }
 
+  const addToFavorite = async (obj) => {
+    try {
+      let favoriteChecker = favoriteItems.find(item => item.id === obj.id)
+      if (favoriteChecker) {
+        axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/favorites/${favoriteChecker.favoriteID}`)
+        setFavoriteItems(prev => prev.filter(item => item.id !== obj.id))
+      } else {
+        let { data } = await axios.post('https://62c57e71134fa108c25402bf.mockapi.io/favorites', obj)
+        setFavoriteItems(prev => [...prev, data])
+      }
+    } catch (error) {
+      alert("Предмет не был добавлен в избранные")
+    }
+  }
   const getTotalPrice = () => {
     let items = drawerItems.map(item => item.price);
     return items[0] ? items.reduce((num1, num2) => num1 + num2) : 0;
@@ -63,33 +87,26 @@ function App() {
         getInputValue={getInputValue}
         searchInput={searchInput} />
       {/* <Advertisement /> */}
-      <div className="catalog">
-
-        {searchInput.length > 0 ?
-          <h1 style={{ margin: '0' }}>{`Поиск по запросу "${searchInput}"`}</h1> :
-          <div className="categories">
-            <a href="?">Рюкзаки</a>
-            <a href="?">Блокноты</a>
-            <a href="?">Кружки</a>
-            <a href="?">Футболки</a>
-            <a href="?">Аксессуары</a>;
-          </div>}
-
-        <div className="catalog__container">
-          {catalogItems.filter(obj => obj.title.toLowerCase().includes(searchInput.toLowerCase())).map(obj =>
-            <ItemCard
-              key={obj.id}
-              isAdded={drawerItems.filter(item => item.id === obj.id)[0]}
-              addToDrawer={() => { addToDrawer(obj) }}
-              imageUrl={obj.itemImage}
-              title={obj.title}
-              price={obj.price} />)}
-        </div>
-      </div>
+      <Routes>
+        <Route path="/*" element={<Catalog
+          searchInput={searchInput}
+          bagsList={bagsList}
+          notesList={notesList}
+          drawerItems={drawerItems}
+          addToDrawer={addToDrawer}
+          favoriteItems={favoriteItems}
+          addToFavorite={addToFavorite} />}
+        />
+        <Route path="/favorites" element={<Favorites
+          searchInput={searchInput}
+          drawerItems={drawerItems}
+          addToDrawer={addToDrawer}
+          favoriteItems={favoriteItems}
+          addToFavorite={addToFavorite} />}
+        />
+      </Routes>
     </div>
-
   );
-
 }
 
 export default App;
