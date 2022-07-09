@@ -7,9 +7,9 @@ export function Favorites({ searchInput, drawerItems, addToDrawer, favoriteItems
         <div className="catalog">
             {searchInput.length > 0 ?
                 <h2 style={{ margin: '0' }}>{`Поиск по запросу "${searchInput}"`}</h2> :
-                <Link to='/'><h1 style={{ margin: '0' }}><img src="img/icons/close-drawer.svg" alt="close" />Избранное</h1></Link>
+                <h1 style={{ margin: '0' }}><Link to='/'><img src="img/icons/close-drawer.svg" alt="close" /></Link>Избранное</h1>
             }
-            <div className="catalog__container">
+            <div className="container">
                 {favoriteItems.length === 0 ?
                     <div className="favoriteEmpty">
                         <img src="./img/notice/noFavorites.webp" alt="Champion's fan" />

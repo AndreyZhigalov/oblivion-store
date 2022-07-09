@@ -34,8 +34,6 @@ export const Drawer = (props) => {
                                     removeItem={() => { deleteItem(item) }}
                                 />)
                             }
-
-
                         </div>
                         <div className={styles.totalBlock}>
                             <div className={styles.total}>

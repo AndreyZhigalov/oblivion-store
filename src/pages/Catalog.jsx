@@ -11,7 +11,7 @@ export function Catalog({ searchInput, bagsList, drawerItems, addToDrawer, favor
                     <Link to="/bags">Рюкзаки</Link>
                     <Link to="/notes">Блокноты</Link>
                 </div>}
-            <div className="catalog__container">
+            <div className="container">
                 <Routes>
                     <Route path="/" element={
                         bagsList.filter(obj => obj.title.toLowerCase().includes(searchInput.toLowerCase())).map(obj =>

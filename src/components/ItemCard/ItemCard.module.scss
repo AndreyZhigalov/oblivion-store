@@ -26,24 +26,28 @@ $element-hover-shadow: drop-shadow(0px 15px 21px rgba(178, 178, 178, 0.4));
     cursor: pointer;
   }
   div {
-    padding: 0 15px;
+    padding: 0 10px;
     display: flex;
     flex-direction: column;
     h3 {
       margin: 5px 0 10px 0;
       color: $font-color;
-      font-size: 14px;
+      font-size: 17px;
+      line-height: 18px;
     }
     p {
       margin: 0;
       color: $font-color;
       opacity: 60%;
+      font-size: 16px;
+      line-height: 18px;
     }
     span {
       margin: 0;
       color: $font-color;
       font-weight: 800;
-      font-size: 20px;
+      font-size: 22px;
+      line-height: 22px;
     }
   }
   img[alt="add"] {

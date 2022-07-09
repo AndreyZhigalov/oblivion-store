@@ -55,11 +55,15 @@ $elements-color: #3a3a3a;
       align-content: center;
       gap: 5px;
       cursor: pointer;
-      span {
-        font-weight: 700;
-        font-size: 16px;
+      a {
         display: flex;
         align-items: center;
+        span {
+          font-weight: 700;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
