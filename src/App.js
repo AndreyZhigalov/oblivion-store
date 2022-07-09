@@ -142,15 +142,16 @@ function App() {
         getTax,
         bagsList,
         notesList,
-        searchInput
+        searchInput,
       }}>
 
       <div className="wrapper">
-        {drawerOpened && <Drawer
-          drawerItems={drawerItems}
-          hideDrawer={toggleDrawer}
-          removeItem={setDrawerItems}
-        />}
+        {drawerOpened &&
+          <Drawer
+            drawerItems={drawerItems}
+            hideDrawer={toggleDrawer}
+            removeItem={setDrawerItems}
+          />}
         <Header
           showDrawer={toggleDrawer}
           totalPrice={getTotalPrice}
@@ -161,22 +162,25 @@ function App() {
         />
         {/* <Advertisement /> */}
         <Routes>
-          <Route path="/*" element={<Catalog
-            searchInput={searchInput}
-            bagsList={bagsList}
-            notesList={notesList}
-            itemsListLoader={itemsListLoader}
-          />}
+          <Route path="/*" element={
+            <Catalog
+              searchInput={searchInput}
+              bagsList={bagsList}
+              notesList={notesList}
+              itemsListLoader={itemsListLoader}
+            />}
           />
-          <Route path="/favorites" element={<Favorites
-            searchInput={searchInput}
-            favoriteItems={favoriteItems}
-            itemsListLoader={itemsListLoader}
-          />}
+          <Route path="/favorites" element={
+            <Favorites
+              searchInput={searchInput}
+              favoriteItems={favoriteItems}
+              itemsListLoader={itemsListLoader}
+            />}
           />
-          <Route path="/profile" element={<Profile
-            toggleSearch={toggleSearch}
-          />}
+          <Route path="/profile" element={
+            <Profile
+              toggleSearch={toggleSearch}
+            />}
           />
         </Routes>
       </div>

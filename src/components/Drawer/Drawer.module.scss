@@ -51,7 +51,7 @@ $elements-color: #3a3a3a;
         align-items: center;
         justify-content: center;
         img {
-          width: 300px;
+          width: 70%;
         }
         p {
           width: 350px;
@@ -61,68 +61,79 @@ $elements-color: #3a3a3a;
         }
       }
     }
-    .wrapper {
-      height: 95%;
+
+    .cartBlock {
+      flex: 1;
+      overflow: auto;
+      padding-left: 5px;
+    }
+    .totalBlock {
+      color: $elements-color;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      .cartBlock {
-        flex: 1;
-        overflow: auto;
-        padding-left: 5px;
-      }
-      .totalBlock {
-        color: $elements-color;
+      gap: 10px;
+      .total,
+      .tax {
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
         gap: 10px;
-        .total,
-        .tax {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          gap: 10px;
-          h3 {
-            width: max-content;
-            margin: 0;
-          }
-          b {
-            width: max-content;
-          }
-          div {
-            position: relative;
-            top: -5px;
-            height: 2px;
-            flex: 1;
-            border-bottom: 1px dashed $elements-color;
-          }
+        h3 {
+          width: max-content;
+          margin: 0;
         }
-      }
-      .mainButton {
-        position: relative;
-        background-color: #7cb120;
-        color: $product-card-color;
-        font-size: 20px;
-        font-weight: 600;
-        border-radius: 30px;
-        border: none;
-        height: 70px;
-        width: 100%;
-        cursor: pointer;
-        img {
-          position: absolute;
-          right: 40px;
-          top: 27px;
-          width: 20px;
-          transition: 0.2s ease-in-out;
+        b {
+          width: max-content;
         }
-        &:hover {
-          background-color: #7dc502;
-          img {
-            transform: translateX(5px);
-          }
+        div {
+          position: relative;
+          top: -5px;
+          height: 2px;
+          flex: 1;
+          border-bottom: 1px dashed $elements-color;
         }
       }
     }
+    .mainButton {
+      position: relative;
+      background-color: #7cb120;
+      color: $product-card-color;
+      font-size: 20px;
+      font-weight: 600;
+      border-radius: 30px;
+      border: none;
+      height: 70px;
+      width: 100%;
+      cursor: pointer;
+      img {
+        position: absolute;
+        right: 40px;
+        top: 27px;
+        width: 20px;
+        transition: 0.2s ease-in-out;
+      }
+      &:hover {
+        background-color: #92d323;
+        img {
+          transform: translateX(5px);
+        }
+      }
+    }
+    .disabled {
+      background-color: #bdbdbd;
+      animation: loadingButton 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes loadingButton {
+  0% {
+    background-color: #bdbdbd;
+  }
+  50% {
+    background-color: #8f8f8f;
+  }
+  100% {
+    background-color: #bdbdbd;
   }
 }
