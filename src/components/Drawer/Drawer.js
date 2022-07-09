@@ -2,21 +2,25 @@ import styles from "./Drawer.module.scss"
 import { DrawerItem } from "./DrawerItem/DrawerItem";
 import axios from "axios";
 import React from "react";
+import ContextData from "../../Context";
+import { useContext } from "react";
 
 
-export const Drawer = (props) => {
+export const Drawer = ({ removeItem, hideDrawer, drawerItems }) => {
+
+    const { getTotalPrice, getTax } = useContext(ContextData)
 
     const deleteItem = (item) => {
         axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${item.drawerID}`)
-        props.removeItem(prev => prev.filter(i => i.id !== item.id))
+        removeItem(prev => prev.filter(i => i.id !== item.id))
     }
 
     return (
         <div className={styles.overlay} >
             <div className={styles.drawer} >
-                <h2><img onClick={props.hideDrawer} src="img/icons/close-drawer.svg" alt="close" /> Корзина</h2>
+                <h2><img onClick={hideDrawer} src="img/icons/close-drawer.svg" alt="close" /> Корзина</h2>
 
-                {props.drawerItems.length === 0 ?
+                {drawerItems.length === 0 ?
                     <div className={styles.empty}>
                         <div >
                             <img src="./img/notice/drawerEmpty.webp" alt="" />
@@ -25,7 +29,7 @@ export const Drawer = (props) => {
                     </div> :
                     <div className={styles.wrapper}>
                         <div className={styles.cartBlock}>
-                            {props.drawerItems.map(item =>
+                            {drawerItems.map(item =>
                                 <DrawerItem
                                     key={item.id}
                                     itemImage={item.itemImage}
@@ -39,12 +43,12 @@ export const Drawer = (props) => {
                             <div className={styles.total}>
                                 <h3>Итого:</h3>
                                 <div></div>
-                                <b>{props.totalPrice() + " руб."}</b>
+                                <b>{getTotalPrice() + " руб."}</b>
                             </div>
                             <div className={styles.tax}>
                                 <h3>Налог 5%:</h3>
                                 <div></div>
-                                <b>{props.tax() + " руб."}</b>
+                                <b>{getTax() + " руб."}</b>
                             </div>
                         </div>
                         <button className={styles.mainButton}>Оформить заказ

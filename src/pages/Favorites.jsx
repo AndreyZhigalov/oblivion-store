@@ -1,8 +1,7 @@
-import { ItemCard } from "../components/ItemCard/ItemCard";
 import React from "react";
 import { Link } from "react-router-dom";
 
-export function Favorites({ searchInput, drawerItems, addToDrawer, favoriteItems, addToFavorite }) {
+export function Favorites({ searchInput, favoriteItems, itemsListLoader }) {
     return (
         <div className="catalog">
             {searchInput.length > 0 ?
@@ -16,14 +15,7 @@ export function Favorites({ searchInput, drawerItems, addToDrawer, favoriteItems
                         <p>Похоже тебе ничего не нравится, о великий чемпион. Зато мне нравишься ты!</p>
                     </div>
                     :
-                    favoriteItems.filter(obj => obj.title.toLowerCase().includes(searchInput.toLowerCase())).map(obj =>
-                        <ItemCard
-                            key={obj.id}
-                            isAdded={drawerItems.filter(item => item.id === obj.id)[0]}
-                            isFavorite={favoriteItems.find(item => item.id === obj.id)}
-                            addToFavorite={() => { addToFavorite(obj) }}
-                            addToDrawer={() => { addToDrawer(obj) }}
-                            {...obj} />)
+                    itemsListLoader(favoriteItems, searchInput)
                 }
             </div>
         </div>

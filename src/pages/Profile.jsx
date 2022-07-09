@@ -1,7 +1,12 @@
 import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import ContextData from "../Context";
 
-export function Profile({ toggleSearch, user }) {
+export function Profile({ toggleSearch }) {
+
+    const { userData } = useContext(ContextData)
+    const user = userData[0]
 
     return (
         <div className="catalog">
@@ -51,6 +56,7 @@ export function Profile({ toggleSearch, user }) {
                 <div className="profileDataBox"
                     style={{ width: "970px", height: "200px" }}>
                     <h3>Последние заказы</h3>
+
                 </div>
             </div>
         </div>

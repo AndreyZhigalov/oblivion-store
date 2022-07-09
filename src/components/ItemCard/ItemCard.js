@@ -1,17 +1,21 @@
 import React from "react";
 import styles from "./ItemCard.module.scss"
+import { useContext } from "react";
+import ContextData from "../../Context";
 
-export const ItemCard = (props) => {
+export const ItemCard = ({ item }) => {
+    const { isAdded, isFavorite, addToFavorite, addToDrawer } = useContext(ContextData)
+
     return (
         <div className={styles.catalog__item}>
-            <img onClick={props.addToFavorite} src={props.isFavorite ? "/img/icons/heart-checked.svg" : "/img/icons/heart-unchecked.svg"} alt="favorite" />
-            <img src={props.itemImage} alt="item" />
+            <img onClick={() => { addToFavorite(item) }} src={isFavorite(item.id) ? "/img/icons/heart-checked.svg" : "/img/icons/heart-unchecked.svg"} alt="favorite" />
+            <img src={item.itemImage} alt="item" />
             <div>
-                <h3>{props.title}</h3>
+                <h3>{item.title}</h3>
                 <p>Цена</p>
-                <span>{props.price} руб.</span>
+                <span>{item.price} руб.</span>
             </div>
-            <img onClick={props.addToDrawer} src={props.isAdded ? "/img/icons/add-checked.svg" : "/img/icons/add-unchecked.svg"} alt="add" />
+            <img onClick={() => { addToDrawer(item) }} src={isAdded(item.id) ? "/img/icons/add-checked.svg" : "/img/icons/add-unchecked.svg"} alt="add" />
         </div>
     );
 }

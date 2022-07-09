@@ -1,8 +1,10 @@
 import { Link, Route, Routes } from "react-router-dom"
-import { ItemCard } from "../components/ItemCard/ItemCard";
 import React from "react";
 
-export function Catalog({ searchInput, bagsList, drawerItems, addToDrawer, favoriteItems, addToFavorite, notesList }) {
+
+export function Catalog({ searchInput, bagsList, notesList, itemsListLoader }) {
+
+
     return (
         <div className="catalog">
             {searchInput.length > 0 ?
@@ -13,41 +15,16 @@ export function Catalog({ searchInput, bagsList, drawerItems, addToDrawer, favor
                 </div>}
             <div className="container">
                 <Routes>
-                    <Route path="/" element={
-                        bagsList.filter(obj => obj.title.toLowerCase().includes(searchInput.toLowerCase())).map(obj =>
-                            <ItemCard
-                                key={obj.id}
-                                isAdded={drawerItems.filter(item => item.id === obj.id)[0]}
-                                isFavorite={favoriteItems.find(item => item.id === obj.id)}
-                                addToFavorite={() => { addToFavorite(obj) }}
-                                addToDrawer={() => { addToDrawer(obj) }}
-                                {...obj} />)
-                    }
+                    <Route path="/" element={itemsListLoader(bagsList, searchInput)}
                     />
-                    <Route path="/bags" element={
-                        bagsList.filter(obj => obj.title.toLowerCase().includes(searchInput.toLowerCase())).map(obj =>
-                            <ItemCard
-                                key={obj.id}
-                                isAdded={drawerItems.find(item => item.id === obj.id)}
-                                isFavorite={favoriteItems.find(item => item.id === obj.id)}
-                                addToFavorite={() => { addToFavorite(obj) }}
-                                addToDrawer={() => { addToDrawer(obj) }}
-                                {...obj} />)
-                    }
+                    <Route path="/bags" element={itemsListLoader(bagsList, searchInput)}
                     />
-                    <Route path="/notes" element={
-                        notesList.filter(obj => obj.title.toLowerCase().includes(searchInput.toLowerCase())).map(obj =>
-                            <ItemCard
-                                key={obj.id}
-                                isAdded={drawerItems.filter(item => item.id === obj.id)[0]}
-                                isFavorite={favoriteItems.find(item => item.id === obj.id)}
-                                addToFavorite={() => { addToFavorite(obj) }}
-                                addToDrawer={() => { addToDrawer(obj) }}
-                                {...obj} />)
-                    }
+                    <Route path="/notes" element={itemsListLoader(notesList, searchInput)}
                     />
                 </Routes>
             </div>
         </div>
     )
 }
+
+
