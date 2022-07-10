@@ -5,7 +5,7 @@ import React from "react";
 import { useState } from "react";
 
 
-export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice }) => {
+export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawerOpened }) => {
     const [isOrdered, setIsOrdered] = useState(false)
     const [orderID, setOrderId] = useState("")
 
@@ -30,7 +30,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice }) => {
     }
 
     return (
-        <div className={styles.overlay} >
+        <div className={`${styles.overlay} ${drawerOpened ? styles.drawerVisible : ""}`}>
             <div className={styles.drawer} >
                 <h2><img onClick={hideDrawer} src="img/icons/close-drawer.svg" alt="close" /> Корзина</h2>
                 {drawerItems.length === 0 ?

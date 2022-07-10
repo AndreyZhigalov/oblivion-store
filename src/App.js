@@ -154,13 +154,13 @@ function App() {
       }}>
 
       <div className="wrapper">
-        {drawerOpened &&
-          <Drawer
-            drawerItems={drawerItems}
-            hideDrawer={toggleDrawer}
-            removeItem={setDrawerItems}
-            totalPrice={getTotalPrice}
-          />}
+        <Drawer
+          drawerOpened={drawerOpened}
+          drawerItems={drawerItems}
+          hideDrawer={toggleDrawer}
+          removeItem={setDrawerItems}
+          totalPrice={getTotalPrice}
+        />
         <Header
           showDrawer={toggleDrawer}
           totalPrice={getTotalPrice}
