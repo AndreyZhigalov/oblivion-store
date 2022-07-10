@@ -123,5 +123,9 @@ html::-webkit-scrollbar {
     .profileDataBox:nth-child(2) {
       gap: 5px;
     }
+    .profileDataBox:last-of-type {
+      height: max-content;
+      width: 970px;
+    }
   }
 }
