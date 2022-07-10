@@ -60,7 +60,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice }) => {
                             <div className={styles.tax}>
                                 <h3>НДС 18%:</h3>
                                 <div></div>
-                                <b>{totalPrice() * 0.18 + " руб."}</b>
+                                <b>{Math.round(totalPrice() * 0.18) + " руб."}</b>
                             </div>
                             <div className={styles.total}>
                                 <h3>Итого:</h3>
