@@ -1,10 +1,8 @@
-import { Link, Route, Routes } from "react-router-dom"
 import React from "react";
+import { Link, Route, Routes } from "react-router-dom"
 
 
-export function Catalog({ searchInput, bagsList, notesList, itemsListLoader }) {
-
-
+export function Catalog({ searchInput, itemsListLoader, bagsList, notesList }) {
     return (
         <div className="catalog">
             {searchInput.length > 0 ?
@@ -15,11 +13,11 @@ export function Catalog({ searchInput, bagsList, notesList, itemsListLoader }) {
                 </div>}
             <div className="container">
                 <Routes>
-                    <Route path="/" element={itemsListLoader(bagsList, searchInput)}
+                    <Route path="" element={itemsListLoader(bagsList, searchInput)}
                     />
-                    <Route path="/bags" element={itemsListLoader(bagsList, searchInput)}
+                    <Route path="bags" element={itemsListLoader(bagsList, searchInput)}
                     />
-                    <Route path="/notes" element={itemsListLoader(notesList, searchInput)}
+                    <Route path="notes" element={itemsListLoader(notesList, searchInput)}
                     />
                 </Routes>
             </div>

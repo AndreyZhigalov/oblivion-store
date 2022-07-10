@@ -1,11 +1,10 @@
 import React from "react";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import ContextData from "../Context";
 
-export function Profile({ toggleSearch }) {
+export function Profile({ toggleSearch, userData }) {
 
-    const { userData } = useContext(ContextData)
+    toggleSearch("none")
+
     let user = userData[0]
 
     return (

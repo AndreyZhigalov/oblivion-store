@@ -11,7 +11,7 @@ export function Favorites({ searchInput, favoriteItems, itemsListLoader }) {
             <div className="container">
                 {favoriteItems.length === 0 ?
                     <div className="favoriteEmpty">
-                        <img src="./img/notice/noFavorites.webp" alt="Champion's fan" />
+                        <img src="img/notice/noFavorites.webp" alt="Champion's fan" />
                         <p>Похоже тебе ничего не нравится, о великий чемпион. Зато мне нравишься ты!</p>
                     </div>
                     :

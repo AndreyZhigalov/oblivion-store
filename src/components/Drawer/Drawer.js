@@ -2,15 +2,12 @@ import styles from "./Drawer.module.scss"
 import { DrawerItem } from "./DrawerItem/DrawerItem";
 import axios from "axios";
 import React from "react";
-import ContextData from "../../Context";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 
-export const Drawer = ({ removeItem, hideDrawer, drawerItems }) => {
+export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice }) => {
     const [isOrdered, setIsOrdered] = useState(false)
     const [orderID, setOrderId] = useState("")
-
-    const { getTotalPrice, getTax } = useContext(ContextData)
 
     const deleteItem = (item) => {
         axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${item.drawerID}`)
@@ -27,7 +24,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems }) => {
             setOrderId(data.orderID)
             removeItem([])
         } catch (error) {
-            alert("Оформление заказа не удалось")
+            alert("Ошибка при отправке данных о заказе")
         }
 
     }
@@ -40,8 +37,8 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems }) => {
                     <div className={styles.empty}>
                         <div >
                             <img src={isOrdered ?
-                                "./img/notice/orderConfirm.webp" :
-                                "./img/notice/drawerEmpty.webp"} alt="" />
+                                "img/notice/orderConfirm.webp" :
+                                "img/notice/drawerEmpty.webp"} alt="" />
                             <p>{isOrdered ?
                                 `Заявка оформлена. Номер вашего заказа №${orderID}. Подробнее о доставке в профиле.` :
                                 "Стой, преступное отродье! Никто не оставит корзину пустой пока я на посту!"}</p>
@@ -60,19 +57,19 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems }) => {
                             }
                         </div>
                         <div className={styles.totalBlock}>
+                            <div className={styles.tax}>
+                                <h3>НДС 18%:</h3>
+                                <div></div>
+                                <b>{totalPrice() * 0.18 + " руб."}</b>
+                            </div>
                             <div className={styles.total}>
                                 <h3>Итого:</h3>
                                 <div></div>
-                                <b>{getTotalPrice() + " руб."}</b>
-                            </div>
-                            <div className={styles.tax}>
-                                <h3>Налог 5%:</h3>
-                                <div></div>
-                                <b>{getTax() + " руб."}</b>
+                                <b>{totalPrice() + " руб."}</b>
                             </div>
                         </div>
                         <button onClick={gettingOrder} className={isOrdered ? `${styles.mainButton} ${styles.disabled}` : styles.mainButton}>Оформить заказ
-                            <img src="/img/icons/button-arrow-right.svg" alt="arrow" />
+                            <img src="img/icons/button-arrow-right.svg" alt="arrow" />
                         </button>
                     </>
                 }

@@ -8,7 +8,7 @@ export const DrawerItem = (props) => {
                 <p>{props.title}</p>
                 <span>{props.price} руб.</span>
             </div>
-            <img onClick={props.removeItem} src="/img/icons/remove.svg" alt="remove" />
+            <img onClick={props.removeItem} src="img/icons/remove.svg" alt="remove" />
         </div>
     );
 }

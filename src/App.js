@@ -1,17 +1,19 @@
-import { Advertisement } from "./components/Advertisement/AdvertIsement";
-import { Drawer } from "./components/Drawer/Drawer";
-import { Header } from "./components/Header/Header";
-import axios from 'axios'
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom"
+import ContentLoader from "react-content-loader"
+import axios from 'axios'
+import ContextData from "./Context";
+
+import { Header } from "./components/Header/Header";
+import { Drawer } from "./components/Drawer/Drawer";
+import { Advertisement } from "./components/Advertisement/AdvertIsement";
 import { Catalog } from "./pages/Catalog";
+import { ItemCard } from "./components/ItemCard/ItemCard";
 import { Favorites } from "./pages/Favorites";
 import { Profile } from "./pages/Profile";
-import ContextData from "./Context";
-import ContentLoader from "react-content-loader"
-import { ItemCard } from "./components/ItemCard/ItemCard";
 
 function App() {
+  const [userData, getUserData] = useState([])
   const [bagsList, setBagsList] = useState([])
   const [notesList, setNotesList] = useState([])
   const [drawerOpened, setDrawerOpened] = useState(false)
@@ -19,7 +21,6 @@ function App() {
   const [favoriteItems, setFavoriteItems] = useState([])
   const [searchInput, setSearchInput] = useState("")
   const [searchAppearance, setSearchAppearance] = useState("normal")
-  const [userData, getUserData] = useState([])
 
   const toggleDrawer = () => {
     setDrawerOpened(!drawerOpened)
@@ -27,20 +28,20 @@ function App() {
 
   useEffect(() => {
     try {
-      axios.get('https://62c57e71134fa108c25402bf.mockapi.io/bags')
-        .then(resp => setBagsList(resp.data))
-      axios.get('https://62c57e71134fa108c25402bf.mockapi.io/notes')
-        .then(resp => setNotesList(resp.data))
+      axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/user")
+        .then(res => getUserData(res.data))
       axios.get('https://62c57e71134fa108c25402bf.mockapi.io/drawer')
         .then(res => setDrawerItems(res.data))
       axios.get('https://62c57e71134fa108c25402bf.mockapi.io/favorites')
         .then(res => setFavoriteItems(res.data))
-      axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/user")
-        .then(res => getUserData(res.data))
+      axios.get('https://62c57e71134fa108c25402bf.mockapi.io/bags')
+        .then(resp => setBagsList(resp.data))
+      axios.get('https://62c57e71134fa108c25402bf.mockapi.io/notes')
+        .then(resp => setNotesList(resp.data))
     } catch (error) {
-      alert("Data is missing")
+      alert("Ошибка при загрузке данных с сервера")
+      console.error(error)
     }
-
   }, [])
 
   const itemsListLoader = (listOfItems, searchInput) => {
@@ -83,11 +84,19 @@ function App() {
         axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${drawerChecker.drawerID}`)
         setDrawerItems(prev => prev.filter(item => item.id !== obj.id))
       } else {
+        setDrawerItems(prev => [...prev, obj])
         let { data } = await axios.post('https://62c57e71134fa108c25402bf.mockapi.io/drawer', obj)
-        setDrawerItems(prev => [...prev, data])
+        setDrawerItems(prev => prev.map((item) => {
+          if (item.id === data.id) {
+            return {
+              ...item,
+              drawerID: data.drawerID
+            }
+          } return item
+        }))
       }
     } catch (error) {
-      alert("Предмет не был добавлен в корзину")
+      alert("Ошибка при добавлении в корзину")
     }
   }
 
@@ -98,20 +107,24 @@ function App() {
         axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/favorites/${favoriteChecker.favoriteID}`)
         setFavoriteItems(prev => prev.filter(item => item.id !== obj.id))
       } else {
+        setFavoriteItems(prev => [...prev, obj])
         let { data } = await axios.post('https://62c57e71134fa108c25402bf.mockapi.io/favorites', obj)
-        setFavoriteItems(prev => [...prev, data])
+        setFavoriteItems(prev => prev.map((item) => {
+          if (item.id === data.id) {
+            return {
+              ...item,
+              favoriteID: data.favoriteID
+            }
+          } return item
+        }))
       }
     } catch (error) {
-      alert("Предмет не был добавлен в избранные")
+      alert("Ошибка при добавлении в избранные")
     }
   }
 
   const getTotalPrice = () => {
-    return drawerItems[0] ? drawerItems.map(item => item.price).reduce((num1, num2) => num1 + num2) : 0;
-  }
-
-  const getTax = () => {
-    return (getTotalPrice() * 0.05).toFixed(2) || 0
+    return drawerItems[0] ? drawerItems.reduce((sum, obj) => sum + obj.price, 0) : 0;
   }
 
   const getInputValue = (event) => {
@@ -133,15 +146,10 @@ function App() {
   return (
     <ContextData.Provider value={
       {
-        userData,
         isAdded,
         isFavorite,
         addToDrawer,
         addToFavorite,
-        getTotalPrice,
-        getTax,
-        bagsList,
-        notesList,
         searchInput,
       }}>
 
@@ -151,6 +159,7 @@ function App() {
             drawerItems={drawerItems}
             hideDrawer={toggleDrawer}
             removeItem={setDrawerItems}
+            totalPrice={getTotalPrice}
           />}
         <Header
           showDrawer={toggleDrawer}
@@ -162,24 +171,25 @@ function App() {
         />
         {/* <Advertisement /> */}
         <Routes>
-          <Route path="/*" element={
+          <Route path="*" element={
             <Catalog
               searchInput={searchInput}
+              itemsListLoader={itemsListLoader}
               bagsList={bagsList}
               notesList={notesList}
-              itemsListLoader={itemsListLoader}
             />}
           />
-          <Route path="/favorites" element={
+          <Route path="favorites" element={
             <Favorites
               searchInput={searchInput}
               favoriteItems={favoriteItems}
               itemsListLoader={itemsListLoader}
             />}
           />
-          <Route path="/profile" element={
+          <Route path="profile" element={
             <Profile
               toggleSearch={toggleSearch}
+              userData={userData}
             />}
           />
         </Routes>
