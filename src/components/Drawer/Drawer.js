@@ -26,13 +26,12 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
         } catch (error) {
             alert("Ошибка при отправке данных о заказе")
         }
-
     }
 
     return (
         <div className={`${styles.overlay} ${drawerOpened ? styles.drawerVisible : ""}`}>
             <div className={styles.drawer} >
-                <h2><img onClick={hideDrawer} src="img/icons/close-drawer.svg" alt="close" /> Корзина</h2>
+                <h2><img onClick={() => { hideDrawer(); setIsOrdered(false) }} src="img/icons/close-drawer.svg" alt="close" /> Корзина</h2>
                 {drawerItems.length === 0 ?
                     <div className={styles.empty}>
                         <div >
@@ -68,7 +67,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
                                 <b>{totalPrice() + " руб."}</b>
                             </div>
                         </div>
-                        <button onClick={gettingOrder} className={isOrdered ? `${styles.mainButton} ${styles.disabled}` : styles.mainButton}>Оформить заказ
+                        <button onClick={gettingOrder} className={`${styles.mainButton} ${isOrdered ? styles.disabled : ""}`}>Оформить заказ
                             <img src="img/icons/button-arrow-right.svg" alt="arrow" />
                         </button>
                     </>
