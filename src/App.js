@@ -6,21 +6,19 @@ import ContextData from "./Context";
 
 import { Header } from "./components/Header/Header";
 import { Drawer } from "./components/Drawer/Drawer";
-import { Advertisement } from "./components/Advertisement/AdvertIsement";
 import { Catalog } from "./pages/Catalog";
 import { ItemCard } from "./components/ItemCard/ItemCard";
 import { Favorites } from "./pages/Favorites";
 import { Profile } from "./pages/Profile";
 
 function App() {
-  const [userData, getUserData] = useState([])
-  const [bagsList, setBagsList] = useState([])
-  const [notesList, setNotesList] = useState([])
+  const [itemsList, setItemsList] = useState([])
   const [drawerOpened, setDrawerOpened] = useState(false)
   const [drawerItems, setDrawerItems] = useState([])
   const [favoriteItems, setFavoriteItems] = useState([])
   const [searchInput, setSearchInput] = useState("")
   const [searchAppearance, setSearchAppearance] = useState("normal")
+  const [activeCategory, setActiveCategory] = useState("bags")
 
   const toggleDrawer = () => {
     setDrawerOpened(!drawerOpened)
@@ -28,21 +26,25 @@ function App() {
 
   useEffect(() => {
     try {
-      axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/user")
-        .then(res => getUserData(res.data))
       axios.get('https://62c57e71134fa108c25402bf.mockapi.io/drawer')
         .then(res => setDrawerItems(res.data))
       axios.get('https://62c57e71134fa108c25402bf.mockapi.io/favorites')
         .then(res => setFavoriteItems(res.data))
-      axios.get('https://62c57e71134fa108c25402bf.mockapi.io/bags')
-        .then(resp => setBagsList(resp.data))
-      axios.get('https://62c57e71134fa108c25402bf.mockapi.io/notes')
-        .then(resp => setNotesList(resp.data))
     } catch (error) {
       alert("Ошибка при загрузке данных с сервера")
       console.error(error)
     }
   }, [])
+
+  useEffect(() => {
+    try {
+      axios.get(`https://62c57e71134fa108c25402bf.mockapi.io/items?category=${activeCategory}`)
+        .then(resp => setItemsList(resp.data))
+    } catch (error) {
+      alert("Ошибка при загрузке данных с сервера")
+      console.error(error)
+    }
+  }, [activeCategory])
 
   const itemsListLoader = (listOfItems, searchInput) => {
     const emptyList = [...Array(8)].map((item, i) => {
@@ -143,6 +145,7 @@ function App() {
     return favoriteItems.some(item => item.id === id)
   }
 
+
   return (
     <ContextData.Provider value={
       {
@@ -169,14 +172,13 @@ function App() {
           toggleSearch={toggleSearch}
           searchAppearance={searchAppearance}
         />
-        {/* <Advertisement /> */}
         <Routes>
           <Route path="*" element={
             <Catalog
               searchInput={searchInput}
               itemsListLoader={itemsListLoader}
-              bagsList={bagsList}
-              notesList={notesList}
+              itemsList={itemsList}
+              setActiveCategory={setActiveCategory}
             />}
           />
           <Route path="favorites" element={
@@ -189,7 +191,6 @@ function App() {
           <Route path="profile" element={
             <Profile
               toggleSearch={toggleSearch}
-              userData={userData}
             />}
           />
         </Routes>

@@ -14,7 +14,7 @@ $product-card-color: #fdfdfd;
   filter: $element-shadow;
   background-color: $product-card-color;
   overflow: hidden;
-  img[alt="item"] {
+  img[alt="фото товара"] {
     height: 100px;
     width: 100px;
     object-fit: cover;
@@ -30,7 +30,7 @@ $product-card-color: #fdfdfd;
     }
   }
 
-  img[alt="remove"] {
+  img[alt="удалить"] {
     padding-right: 20px;
     opacity: 0.2;
     cursor: pointer;

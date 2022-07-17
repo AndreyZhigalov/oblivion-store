@@ -7,15 +7,23 @@ import { LastOrdersItems } from "../components/LastOrdersItems";
 
 import styles from "../components/LastOrdersItems/LastOrdersItems.module.scss"
 
-export function Profile({ toggleSearch, userData }) {
+export function Profile({ toggleSearch }) {
     toggleSearch("none")
 
     const [lastOrders, setLastOrders] = useState([])
     const [switchOrdersList, setSwitchOrdersList] = useState([false, "Показать все заказы?"])
+    const [userData, getUserData] = useState([])
 
     useEffect(() => {
-        axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/orders")
-            .then(res => setLastOrders(res.data))
+        try {
+            axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/user")
+                .then(res => getUserData(res.data))
+            axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/orders")
+                .then(res => setLastOrders(res.data))
+        } catch (error) {
+            alert("Ошибка при загрузке данных с сервера")
+            console.error(error)
+        }
     }, [])
 
     const showRestOrders = () => {
@@ -29,7 +37,7 @@ export function Profile({ toggleSearch, userData }) {
     return (
         <div className="catalog">
             <h1 style={{ margin: '0' }}>
-                <Link to='/' onClick={() => { toggleSearch("flex") }}> <img src="img/icons/close-drawer.svg" alt="close" /></Link>Профиль
+                <Link to='/' onClick={() => { toggleSearch("flex") }}> <img src="img/icons/close-drawer.svg" alt="закрыть" /></Link>Профиль
             </h1>
 
             <div className="container">

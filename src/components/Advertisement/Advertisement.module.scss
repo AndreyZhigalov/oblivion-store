@@ -3,13 +3,14 @@
   height: 300px;
   position: relative;
   display: flex;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   img:first-of-type,
   img:last-of-type {
     position: absolute;
     height: 50px;
     width: 50px;
     top: calc(50% - 25px / 2);
+    display: none;
   }
   img:nth-child(2) {
     width: 950px;

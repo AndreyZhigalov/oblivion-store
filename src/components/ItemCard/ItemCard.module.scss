@@ -12,12 +12,12 @@ $element-hover-shadow: drop-shadow(0px 15px 21px rgba(178, 178, 178, 0.4));
   filter: $element-shadow;
   border-radius: 5px;
   border: 1px solid rgb(235, 235, 235);
-  img[alt="item"] {
+  img[alt="фото товара"] {
     width: 230px;
     height: 230px;
     object-fit: cover;
   }
-  img[alt="favorite"] {
+  img[alt="избранное"] {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -50,10 +50,10 @@ $element-hover-shadow: drop-shadow(0px 15px 21px rgba(178, 178, 178, 0.4));
       line-height: 22px;
     }
   }
-  img[alt="add"] {
+  img[alt="добавить"] {
     position: absolute;
     bottom: 20px;
-    right: 20px;
+    right: 10px;
     height: 40px;
     width: 40px;
     cursor: pointer;

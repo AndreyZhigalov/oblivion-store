@@ -31,13 +31,13 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
     return (
         <div className={`${styles.overlay} ${drawerOpened ? styles.drawerVisible : ""}`}>
             <div className={styles.drawer} >
-                <h2><img onClick={() => { hideDrawer(); setIsOrdered(false) }} src="img/icons/close-drawer.svg" alt="close" /> Корзина</h2>
+                <h2><img onClick={() => { hideDrawer(); setIsOrdered(false) }} src="img/icons/close-drawer.svg" alt="закрыть" /> Корзина</h2>
                 {drawerItems.length === 0 ?
                     <div className={styles.empty}>
                         <div >
                             <img src={isOrdered ?
                                 "img/notice/orderConfirm.webp" :
-                                "img/notice/drawerEmpty.webp"} alt="" />
+                                "img/notice/drawerEmpty.webp"} alt="корзина" />
                             <p>{isOrdered ?
                                 `Заявка оформлена. Номер вашего заказа №${orderID}. Подробнее о доставке в профиле.` :
                                 "Стой, преступное отродье! Никто не оставит корзину пустой пока я на посту!"}</p>
@@ -68,7 +68,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
                             </div>
                         </div>
                         <button onClick={gettingOrder} className={`${styles.mainButton} ${isOrdered ? styles.disabled : ""}`}>Оформить заказ
-                            <img src="img/icons/button-arrow-right.svg" alt="arrow" />
+                            <img src="img/icons/button-arrow-right.svg" alt="стрелка" />
                         </button>
                     </>
                 }
