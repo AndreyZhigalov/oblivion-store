@@ -37,14 +37,16 @@ function App() {
   }, [])
 
   useEffect(() => {
+    const search = searchInput ? `&title=${searchInput}` : "";
+    const category = activeCategory ? `&category=${activeCategory}` : "";
     try {
-      axios.get(`https://62c57e71134fa108c25402bf.mockapi.io/items?category=${activeCategory}`)
+      axios.get(`https://62c57e71134fa108c25402bf.mockapi.io/items?${search}${category}`)
         .then(resp => setItemsList(resp.data))
     } catch (error) {
-      alert("Ошибка при загрузке данных с сервера")
+      alert("Ошибка при загрузке каталога товаров")
       console.error(error)
     }
-  }, [activeCategory])
+  }, [activeCategory, searchInput])
 
   const itemsListLoader = (listOfItems, searchInput) => {
     const emptyList = [...Array(8)].map((item, i) => {
@@ -75,7 +77,7 @@ function App() {
     } else {
       if (listOfItems.length > 0) {
         return listOfItems.map(item => <ItemCard key={item.id} item={item} />)
-      } return emptyList
+      }
     }
   }
 

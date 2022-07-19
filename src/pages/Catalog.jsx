@@ -15,11 +15,11 @@ export function Catalog({ searchInput, itemsListLoader, itemsList, setActiveCate
                     </div>}
                 <div className="container">
                     <Routes>
-                        <Route path="" element={itemsListLoader(itemsList, searchInput)}
+                        <Route path="" element={itemsListLoader(itemsList)}
                         />
-                        <Route path="bags" element={itemsListLoader(itemsList, searchInput)}
+                        <Route path="bags" element={itemsListLoader(itemsList)}
                         />
-                        <Route path="notes" element={itemsListLoader(itemsList, searchInput)}
+                        <Route path="notes" element={itemsListLoader(itemsList)}
                         />
                     </Routes>
                 </div>

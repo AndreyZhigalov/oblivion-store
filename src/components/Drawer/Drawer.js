@@ -32,7 +32,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
         <div className={`${styles.overlay} ${drawerOpened ? styles.drawerVisible : ""}`}>
             <div className={styles.drawer} >
                 <h2><img onClick={() => { hideDrawer(); setIsOrdered(false) }} src="img/icons/close-drawer.svg" alt="закрыть" /> Корзина</h2>
-                {drawerItems.length === 0 ?
+                {!drawerItems.length ?
                     <div className={styles.empty}>
                         <div >
                             <img src={isOrdered ?
