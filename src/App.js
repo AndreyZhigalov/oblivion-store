@@ -11,6 +11,8 @@ import { ItemCard } from "./components/ItemCard/ItemCard";
 import { Favorites } from "./pages/Favorites";
 import { Profile } from "./pages/Profile";
 
+import styles from "./index.module.scss"
+
 function App() {
   const [itemsList, setItemsList] = useState([])
   const [drawerOpened, setDrawerOpened] = useState(false)
@@ -165,7 +167,7 @@ function App() {
 
   return (
     <ContextData.Provider value={contextValues}>
-      <div className="wrapper">
+      <div className={styles.wrapper}>
         <Drawer />
         <Header />
         <Routes>

@@ -19,7 +19,8 @@ $elements-color: #3a3a3a;
     right: 0;
     top: 0;
     height: 100%;
-    width: 470px;
+    max-width: 470px;
+    width: 100%;
     background-color: $wrapper-color;
     padding: 20px;
     display: flex;
@@ -33,7 +34,7 @@ $elements-color: #3a3a3a;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      img[alt="закрыть"] {
+      img[alt='закрыть'] {
         padding-right: 20px;
         opacity: 0.2;
         cursor: pointer;

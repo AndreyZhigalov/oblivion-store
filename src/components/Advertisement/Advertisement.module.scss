@@ -1,8 +1,9 @@
 .advertiseCover {
-  width: 950px;
-  height: 300px;
+  width: 100%;
+  height: min-content;
   position: relative;
   display: flex;
+  justify-content: center;
   margin: 0 auto 30px;
   img:first-of-type,
   img:last-of-type {
@@ -13,8 +14,10 @@
     display: none;
   }
   img:nth-child(2) {
-    width: 950px;
-    height: 300px;
+    width: 100%;
+    height: min-content;
+    max-width: 950px;
+    max-height: 300px;
     object-fit: cover;
   }
   img:last-of-type {
