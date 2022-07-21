@@ -18,6 +18,10 @@ $elements-color: #3a3a3a;
       font-weight: 700;
       font-size: 24px;
       color: $font-color;
+      span {
+        opacity: 0%;
+        font-size: 0;
+      }
     }
   }
   .search {

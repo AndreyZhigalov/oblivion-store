@@ -1,25 +1,31 @@
 import React from "react";
-import styles from "./Header.module.scss"
+import ContextData from "../../Context";
+
 import { Link } from "react-router-dom"
 
-export const Header = ({ showDrawer, getInputValue, searchInput, toggleSearch, searchAppearance, totalPrice }) => {
+import styles from "./Header.module.scss"
+
+export const Header = () => {
+    const inputRef = React.useRef()
+    const { searchInput, setSearchInput, getTotalPrice, toggleSearch, toggleDrawer, searchAppearance } = React.useContext(ContextData)
 
     return (
         <header className={styles.header}>
             <Link to="/" onClick={() => { toggleSearch("flex") }}>
                 <div className={styles.logoContainer}>
                     <img src="img/logo.png" height={50} alt="O" />
-                    <h1>BLIVION STORE</h1>
+                    <h1><span>O</span>BLIVION STORE</h1>
                 </div>
             </Link>
             <div className={styles.search} style={{ display: `${searchAppearance}` }}>
                 <img src="img/icons/search.svg" alt="поиск" />
-                <input onChange={getInputValue} value={searchInput} placeholder="Поиск..." />
+                <input onChange={(event) => setSearchInput(event.currentTarget.value)} value={searchInput} ref={inputRef} placeholder="Поиск..." />
+                {searchInput && <img onClick={() => { setSearchInput(""); inputRef.current.focus() }} src="img/icons/remove.svg" alt="clear" />}
             </div>
             <ul>
-                <li onClick={showDrawer}>
+                <li onClick={toggleDrawer}>
                     <img src="img/icons/cart.svg" height={25} alt="корзина" />
-                    <span >{totalPrice() + " руб."}</span>
+                    <span >{getTotalPrice() + " руб."}</span>
                 </li>
                 <li onClick={() => { toggleSearch("flex") }}>
                     <Link to="/favorites">

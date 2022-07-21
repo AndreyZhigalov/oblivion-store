@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import { LastOrdersItems } from "../components/LastOrdersItems";
 
 import styles from "../components/LastOrdersItems/LastOrdersItems.module.scss"
+import ContextData from "../Context";
 
-export function Profile({ toggleSearch }) {
+export function Profile() {
+    const { toggleSearch } = React.useContext(ContextData)
     toggleSearch("none")
 
     const [lastOrders, setLastOrders] = useState([])

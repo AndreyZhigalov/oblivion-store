@@ -1,8 +1,10 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom"
 import { Advertisement } from "../components/Advertisement/AdvertIsement";
+import ContextData from "../Context";
 
-export function Catalog({ searchInput, itemsListLoader, itemsList, setActiveCategory }) {
+export function Catalog() {
+    const { searchInput, itemsListLoader, itemsList, setActiveCategory } = React.useContext(ContextData)
     return (
         <div>
             <Advertisement />

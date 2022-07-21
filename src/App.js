@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios'
 import { Route, Routes } from "react-router-dom"
 import ContentLoader from "react-content-loader"
-import axios from 'axios'
 import ContextData from "./Context";
 
 import { Header } from "./components/Header/Header";
@@ -31,7 +31,7 @@ function App() {
       axios.get('https://62c57e71134fa108c25402bf.mockapi.io/favorites')
         .then(res => setFavoriteItems(res.data))
     } catch (error) {
-      alert("Ошибка при загрузке данных с сервера")
+      alert("Ошибка при загрузке корзины или избранных с сервера")
       console.error(error)
     }
   }, [])
@@ -131,10 +131,6 @@ function App() {
     return drawerItems[0] ? drawerItems.reduce((sum, obj) => sum + obj.price, 0) : 0;
   }
 
-  const getInputValue = (event) => {
-    setSearchInput(event.currentTarget.value)
-  }
-
   const toggleSearch = (value) => {
     setSearchAppearance(value)
   }
@@ -147,54 +143,35 @@ function App() {
     return favoriteItems.some(item => item.id === id)
   }
 
+  const contextValues = {
+    isAdded,
+    isFavorite,
+    addToDrawer,
+    addToFavorite,
+    favoriteItems,
+    searchInput,
+    setSearchInput,
+    getTotalPrice,
+    searchAppearance,
+    toggleSearch,
+    toggleDrawer,
+    drawerItems,
+    setDrawerItems,
+    drawerOpened,
+    itemsListLoader,
+    itemsList,
+    setActiveCategory
+  }
 
   return (
-    <ContextData.Provider value={
-      {
-        isAdded,
-        isFavorite,
-        addToDrawer,
-        addToFavorite,
-        searchInput,
-      }}>
-
+    <ContextData.Provider value={contextValues}>
       <div className="wrapper">
-        <Drawer
-          drawerOpened={drawerOpened}
-          drawerItems={drawerItems}
-          hideDrawer={toggleDrawer}
-          removeItem={setDrawerItems}
-          totalPrice={getTotalPrice}
-        />
-        <Header
-          showDrawer={toggleDrawer}
-          totalPrice={getTotalPrice}
-          getInputValue={getInputValue}
-          searchInput={searchInput}
-          toggleSearch={toggleSearch}
-          searchAppearance={searchAppearance}
-        />
+        <Drawer />
+        <Header />
         <Routes>
-          <Route path="*" element={
-            <Catalog
-              searchInput={searchInput}
-              itemsListLoader={itemsListLoader}
-              itemsList={itemsList}
-              setActiveCategory={setActiveCategory}
-            />}
-          />
-          <Route path="favorites" element={
-            <Favorites
-              searchInput={searchInput}
-              favoriteItems={favoriteItems}
-              itemsListLoader={itemsListLoader}
-            />}
-          />
-          <Route path="profile" element={
-            <Profile
-              toggleSearch={toggleSearch}
-            />}
-          />
+          <Route path="*" element={<Catalog />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="profile" element={<Profile />} />
         </Routes>
       </div>
     </ContextData.Provider>

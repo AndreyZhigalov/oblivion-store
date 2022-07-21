@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ContextData from "../Context";
 
-export function Favorites({ searchInput, favoriteItems, itemsListLoader }) {
+export function Favorites() {
+    const { searchInput, favoriteItems, itemsListLoader } = React.useContext(ContextData)
     return (
         <div className="catalog">
             {searchInput.length > 0 ?

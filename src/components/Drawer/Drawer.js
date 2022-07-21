@@ -1,18 +1,18 @@
-import styles from "./Drawer.module.scss"
-import { DrawerItem } from "./DrawerItem/DrawerItem";
-import axios from "axios";
 import React from "react";
+import axios from "axios";
+import ContextData from "../../Context";
+
+import { DrawerItem } from "./DrawerItem/DrawerItem";
 import { useState } from "react";
 
+import styles from "./Drawer.module.scss"
 
-export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawerOpened }) => {
+
+export const Drawer = () => {
+    const { getTotalPrice, toggleDrawer, setDrawerItems, drawerItems, drawerOpened } = React.useContext(ContextData)
+
     const [isOrdered, setIsOrdered] = useState(false)
     const [orderID, setOrderId] = useState("")
-
-    const deleteItem = (item) => {
-        axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${item.drawerID}`)
-        removeItem(prev => prev.filter(i => i.id !== item.id))
-    }
 
     const gettingOrder = async () => {
         try {
@@ -22,7 +22,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
                 await axios.delete(`https://62c57e71134fa108c25402bf.mockapi.io/drawer/${drawerItems[i].drawerID}`)
             }
             setOrderId(data.orderID)
-            removeItem([])
+            setDrawerItems([])
         } catch (error) {
             alert("Ошибка при отправке данных о заказе")
         }
@@ -31,7 +31,7 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
     return (
         <div className={`${styles.overlay} ${drawerOpened ? styles.drawerVisible : ""}`}>
             <div className={styles.drawer} >
-                <h2><img onClick={() => { hideDrawer(); setIsOrdered(false) }} src="img/icons/close-drawer.svg" alt="закрыть" /> Корзина</h2>
+                <h2><img onClick={() => { toggleDrawer(); setIsOrdered(false) }} src="img/icons/close-drawer.svg" alt="закрыть" /> Корзина</h2>
                 {!drawerItems.length ?
                     <div className={styles.empty}>
                         <div >
@@ -46,25 +46,19 @@ export const Drawer = ({ removeItem, hideDrawer, drawerItems, totalPrice, drawer
                     <>
                         <div className={styles.cartBlock}>
                             {drawerItems.map(item =>
-                                <DrawerItem
-                                    key={item.id}
-                                    itemImage={item.itemImage}
-                                    title={item.title}
-                                    price={item.price}
-                                    removeItem={() => { deleteItem(item) }}
-                                />)
+                                <DrawerItem key={item.id} item={item} />)
                             }
                         </div>
                         <div className={styles.totalBlock}>
                             <div className={styles.tax}>
                                 <h3>НДС 18%:</h3>
                                 <div></div>
-                                <b>{Math.round(totalPrice() * 0.18) + " руб."}</b>
+                                <b>{Math.round(getTotalPrice() * 0.18) + " руб."}</b>
                             </div>
                             <div className={styles.total}>
                                 <h3>Итого:</h3>
                                 <div></div>
-                                <b>{totalPrice() + " руб."}</b>
+                                <b>{getTotalPrice() + " руб."}</b>
                             </div>
                         </div>
                         <button onClick={gettingOrder} className={`${styles.mainButton} ${isOrdered ? styles.disabled : ""}`}>Оформить заказ
