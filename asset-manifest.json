@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.c628466b.css",
-    "main.js": "/static/js/main.c69f4073.js",
-    "index.html": "/index.html",
-    "main.c628466b.css.map": "/static/css/main.c628466b.css.map",
-    "main.c69f4073.js.map": "/static/js/main.c69f4073.js.map"
+    "main.css": "/oblivion-store/static/css/main.ec0b232f.css",
+    "main.js": "/oblivion-store/static/js/main.f79f59c0.js",
+    "index.html": "/oblivion-store/index.html",
+    "main.ec0b232f.css.map": "/oblivion-store/static/css/main.ec0b232f.css.map",
+    "main.f79f59c0.js.map": "/oblivion-store/static/js/main.f79f59c0.js.map"
   },
   "entrypoints": [
-    "static/css/main.c628466b.css",
-    "static/js/main.c69f4073.js"
+    "static/css/main.ec0b232f.css",
+    "static/js/main.f79f59c0.js"
   ]
 }
