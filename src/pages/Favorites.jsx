@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ItemsBlock from "../components/ItemsBlock";
 import ContextData from "../Context";
 
 import styles from "../index.module.scss"
 
 export function Favorites() {
-    const { searchInput, favoriteItems, itemsListLoader } = React.useContext(ContextData)
+    const { searchInput, favoriteItems } = React.useContext(ContextData)
     return (
         <div className={styles.catalog}>
             {searchInput.length > 0 ?
@@ -19,7 +20,7 @@ export function Favorites() {
                         <p>Похоже тебе ничего не нравится, о великий чемпион. Зато мне нравишься ты!</p>
                     </div>
                     :
-                    itemsListLoader(favoriteItems, searchInput)
+                    <ItemsBlock itemsList={favoriteItems} />
                 }
             </div>
         </div>

@@ -1,13 +1,28 @@
 import React from "react";
 import ContextData from "../../Context";
-
+import debounce from "lodash.debounce"
 import { Link } from "react-router-dom"
 
 import styles from "./Header.module.scss"
 
 export const Header = () => {
     const inputRef = React.useRef()
-    const { searchInput, setSearchInput, getTotalPrice, toggleSearch, toggleDrawer, searchAppearance } = React.useContext(ContextData)
+    const { setSearchInput, getTotalPrice, toggleSearch, toggleDrawer, searchAppearance } = React.useContext(ContextData)
+    const [inputValue, setInputValue] = React.useState("")
+
+    const searchDelay = React.useCallback(debounce(str => setSearchInput(str), 300), [])
+
+    const setInput = event => {
+        let value = event.currentTarget.value
+        searchDelay(value)
+        setInputValue(value)
+    }
+
+    const clearSearchInput = () => {
+        setInputValue("")
+        setSearchInput("")
+        inputRef.current.focus()
+    }
 
     return (
         <header className={styles.header}>
@@ -19,8 +34,8 @@ export const Header = () => {
             </Link>
             <div className={styles.search} style={{ display: `${searchAppearance}` }}>
                 <img src="img/icons/search.svg" alt="поиск" />
-                <input onChange={(event) => setSearchInput(event.currentTarget.value)} value={searchInput} ref={inputRef} placeholder="Поиск..." />
-                {searchInput && <img onClick={() => { setSearchInput(""); inputRef.current.focus() }} src="img/icons/remove.svg" alt="clear" />}
+                <input onChange={(event) => setInput(event)} value={inputValue} ref={inputRef} placeholder="Поиск..." />
+                {inputValue && <img onClick={clearSearchInput} src="img/icons/remove.svg" alt="clear" />}
             </div>
             <ul>
                 <li onClick={toggleDrawer}>

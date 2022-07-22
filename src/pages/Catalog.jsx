@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom"
 import { Advertisement } from "../components/Advertisement/AdvertIsement";
+import ItemsBlock from "../components/ItemsBlock";
 import ContextData from "../Context";
 
 import styles from "../index.module.scss"
 
 export function Catalog() {
-    const { searchInput, itemsListLoader, itemsList, setActiveCategory } = React.useContext(ContextData)
+    const { searchInput, itemsList, setActiveCategory } = React.useContext(ContextData)
     return (
         <div>
             <Advertisement />
@@ -19,11 +20,11 @@ export function Catalog() {
                     </div>}
                 <div className={styles.container}>
                     <Routes>
-                        <Route path="" element={itemsListLoader(itemsList)}
+                        <Route path="" element={<ItemsBlock itemsList={itemsList} />}
                         />
-                        <Route path="bags" element={itemsListLoader(itemsList)}
+                        <Route path="bags" element={<ItemsBlock itemsList={itemsList} />}
                         />
-                        <Route path="notes" element={itemsListLoader(itemsList)}
+                        <Route path="notes" element={<ItemsBlock itemsList={itemsList} />}
                         />
                     </Routes>
                 </div>
