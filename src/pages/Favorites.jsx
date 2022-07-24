@@ -6,12 +6,18 @@ import ContextData from "../Context";
 import styles from "../index.module.scss"
 
 export function Favorites() {
-    const { searchInput, favoriteItems } = React.useContext(ContextData)
+    const { searchInput, favoriteItems, toggleSearch } = React.useContext(ContextData)
+    toggleSearch("none")
+
     return (
         <div className={styles.catalog}>
             {searchInput.length > 0 ?
                 <h2 style={{ margin: '0' }}>{`Поиск по запросу "${searchInput}"`}</h2> :
-                <h1 style={{ margin: '0' }}><Link to='/'><img src="img/icons/close-drawer.svg" alt="закрыть" /></Link>Избранное</h1>
+                <h1 style={{ margin: '0' }}>
+                    <Link to='/' onClick={() => toggleSearch("flex")}>
+                        <img src="img/icons/close-drawer.svg" alt="закрыть" />
+                    </Link>Избранное
+                </h1>
             }
             <div className={styles.container}>
                 {favoriteItems.length === 0 ?

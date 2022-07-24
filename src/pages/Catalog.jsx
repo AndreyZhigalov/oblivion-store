@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom"
 import { Advertisement } from "../components/Advertisement/AdvertIsement";
 import ItemsBlock from "../components/ItemsBlock";
 import ContextData from "../Context";
@@ -7,7 +6,7 @@ import ContextData from "../Context";
 import styles from "../index.module.scss"
 
 export function Catalog() {
-    const { searchInput, itemsList, setActiveCategory } = React.useContext(ContextData)
+    const { searchInput, setActiveCategory } = React.useContext(ContextData)
     return (
         <div>
             <Advertisement />
@@ -15,18 +14,11 @@ export function Catalog() {
                 {searchInput.length > 0 ?
                     <h2 style={{ margin: '0' }}>{`Поиск по запросу "${searchInput}"`}</h2> :
                     <div className={styles.categories}>
-                        <Link to="/bags" onClick={() => setActiveCategory("bags")}>Рюкзаки</Link>
-                        <Link to="/notes" onClick={() => setActiveCategory("notes")}>Блокноты</Link>
+                        <h2 onClick={() => setActiveCategory("bags")}>Рюкзаки</h2>
+                        <h2 onClick={() => setActiveCategory("notes")}>Блокноты</h2>
                     </div>}
                 <div className={styles.container}>
-                    <Routes>
-                        <Route path="" element={<ItemsBlock itemsList={itemsList} />}
-                        />
-                        <Route path="bags" element={<ItemsBlock itemsList={itemsList} />}
-                        />
-                        <Route path="notes" element={<ItemsBlock itemsList={itemsList} />}
-                        />
-                    </Routes>
+                    <ItemsBlock />
                 </div>
             </div>
         </div>

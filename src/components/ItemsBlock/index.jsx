@@ -3,9 +3,9 @@ import ContentLoader from 'react-content-loader'
 import ContextData from '../../Context'
 import { ItemCard } from '../ItemCard/ItemCard'
 
-const ItemsBlock = ({ itemsList }) => {
+const ItemsBlock = () => {
 
-    const { searchInput } = React.useContext(ContextData)
+    const { searchInput, itemsList } = React.useContext(ContextData)
 
     const itemsListLoader = (listOfItems, searchInput) => {
         const emptyList = [...Array(8)].map((item, i) => {
@@ -32,7 +32,7 @@ const ItemsBlock = ({ itemsList }) => {
             if (listOfItems.length > 0) {
                 return itemsList.filter(item => item.title.toLowerCase().includes(searchInput.toLowerCase()))
                     .map(item => <ItemCard key={item.id} item={item} />)
-            } return emptyList
+            }
         } else {
             if (listOfItems.length > 0) {
                 return itemsList.map(item => <ItemCard key={item.id} item={item} />)

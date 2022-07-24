@@ -43,12 +43,12 @@ export const Header = () => {
                     <span >{getTotalPrice() + " руб."}</span>
                 </li>
                 <li onClick={() => { toggleSearch("flex") }}>
-                    <Link to="/favorites">
+                    <Link to="/favorites" onClick={clearSearchInput}>
                         <img src="img/icons/heart-common.svg" height={25} alt="избранное" />
                     </Link>
                 </li>
                 <li onClick={() => { toggleSearch("none") }}>
-                    <Link to="/profile">
+                    <Link to="/profile" onClick={clearSearchInput}>
                         <img src="img/icons/user.svg" height={28} alt="профиль" />
                     </Link>
                 </li>
