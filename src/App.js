@@ -41,8 +41,6 @@ function App() {
     }
   }, [])
 
-
-
   useEffect(() => {
     if (isFiltered.current) {
       const search = searchInput ? `title=${searchInput}` : "";
@@ -54,7 +52,6 @@ function App() {
         alert("Ошибка при загрузке каталога товаров")
         console.error(error)
       }
-      console.log("main")
     }
   }, [activeCategory, searchInput, isFiltered.current])
 
@@ -64,7 +61,6 @@ function App() {
       if (searchParams.search) setSearchInput(searchParams.search);
       if (searchParams.category) setActiveCategory(searchParams.category);
     }
-    console.log("search")
     isFiltered.current = true
   }, [])
 
@@ -83,7 +79,6 @@ function App() {
       navigate(`?${filterParams}`)
     }
     setWasLoaded(true)
-    console.log("stringify")
   }, [activeCategory, searchInput])
 
   const addToDrawer = async (obj) => {
@@ -164,7 +159,8 @@ function App() {
     setDrawerItems,
     drawerOpened,
     itemsList,
-    setActiveCategory
+    setActiveCategory,
+    activeCategory
   }
 
   return (
@@ -173,10 +169,10 @@ function App() {
         <Drawer />
         <Header />
         <Routes>
-          <Route path="" element={<Catalog />} />
-          <Route path="favorites" element={<Favorites />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="oblivion-store" element={<Catalog />} />
+          <Route path="oblivion-store/favorites" element={<Favorites />} />
+          <Route path="oblivion-store/profile" element={<Profile />} />
+          <Route path="oblivion-store/*" element={<NotFound />} />
         </Routes>
       </div>
     </ContextData.Provider>

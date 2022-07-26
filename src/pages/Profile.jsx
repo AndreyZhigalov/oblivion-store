@@ -21,7 +21,7 @@ export function Profile() {
         try {
             axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/user")
                 .then(res => getUserData(res.data))
-            axios.get("https://62c8d53c0f32635590dd50d6.mockapi.io/orders")
+            axios.get(`https://62c8d53c0f32635590dd50d6.mockapi.io/orders`)
                 .then(res => setLastOrders(res.data))
         } catch (error) {
             alert("Ошибка при загрузке данных с сервера")
@@ -40,7 +40,7 @@ export function Profile() {
     return (
         <div className={styles.catalog}>
             <h1 style={{ margin: '0' }}>
-                <Link to='/' onClick={() => { toggleSearch("flex") }}> <img src="img/icons/close-drawer.svg" alt="закрыть" /></Link>Профиль
+                <Link to='/oblivion-store/' onClick={() => { toggleSearch("flex") }}> <img src="img/icons/close-drawer.svg" alt="закрыть" /></Link>Профиль
             </h1>
 
             <div className={styles.container}>

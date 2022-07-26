@@ -3,9 +3,9 @@ import ContentLoader from 'react-content-loader'
 import ContextData from '../../Context'
 import { ItemCard } from '../ItemCard/ItemCard'
 
-const ItemsBlock = () => {
+const ItemsBlock = ({ itemsList }) => {
 
-    const { searchInput, itemsList } = React.useContext(ContextData)
+    const { searchInput } = React.useContext(ContextData)
 
     const itemsListLoader = (listOfItems, searchInput) => {
         const emptyList = [...Array(8)].map((item, i) => {

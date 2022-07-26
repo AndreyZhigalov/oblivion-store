@@ -6,7 +6,8 @@ import ContextData from "../Context";
 import styles from "../index.module.scss"
 
 export function Catalog() {
-    const { searchInput, setActiveCategory } = React.useContext(ContextData)
+    const { searchInput, setActiveCategory, itemsList, activeCategory } = React.useContext(ContextData)
+
     return (
         <div>
             <Advertisement />
@@ -14,11 +15,13 @@ export function Catalog() {
                 {searchInput.length > 0 ?
                     <h2 style={{ margin: '0' }}>{`Поиск по запросу "${searchInput}"`}</h2> :
                     <div className={styles.categories}>
-                        <h2 onClick={() => setActiveCategory("bags")}>Рюкзаки</h2>
-                        <h2 onClick={() => setActiveCategory("notes")}>Блокноты</h2>
+                        <h2 onClick={() => setActiveCategory("bags")}
+                            className={activeCategory === "bags" ? styles.active : ""}>Рюкзаки</h2>
+                        <h2 onClick={() => setActiveCategory("notes")}
+                            className={activeCategory === "notes" ? styles.active : ""}>Блокноты</h2>
                     </div>}
                 <div className={styles.container}>
-                    <ItemsBlock />
+                    <ItemsBlock itemsList={itemsList} />
                 </div>
             </div>
         </div>

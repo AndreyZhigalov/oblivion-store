@@ -26,7 +26,7 @@ export const Header = () => {
 
     return (
         <header className={styles.header}>
-            <Link to="/" onClick={() => { toggleSearch("flex") }}>
+            <Link to="oblivion-store/" onClick={() => { toggleSearch("flex") }}>
                 <div className={styles.logoContainer}>
                     <img src="img/logo.png" height={50} alt="O" />
                     <h1><span>O</span>BLIVION STORE</h1>
@@ -43,12 +43,12 @@ export const Header = () => {
                     <span >{getTotalPrice() + " руб."}</span>
                 </li>
                 <li onClick={() => { toggleSearch("flex") }}>
-                    <Link to="/favorites" onClick={clearSearchInput}>
+                    <Link to="oblivion-store/favorites" onClick={clearSearchInput}>
                         <img src="img/icons/heart-common.svg" height={25} alt="избранное" />
                     </Link>
                 </li>
                 <li onClick={() => { toggleSearch("none") }}>
-                    <Link to="/profile" onClick={clearSearchInput}>
+                    <Link to="oblivion-store/profile" onClick={clearSearchInput}>
                         <img src="img/icons/user.svg" height={28} alt="профиль" />
                     </Link>
                 </li>

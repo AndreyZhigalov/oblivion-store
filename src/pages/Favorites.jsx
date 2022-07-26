@@ -14,7 +14,7 @@ export function Favorites() {
             {searchInput.length > 0 ?
                 <h2 style={{ margin: '0' }}>{`Поиск по запросу "${searchInput}"`}</h2> :
                 <h1 style={{ margin: '0' }}>
-                    <Link to='/' onClick={() => toggleSearch("flex")}>
+                    <Link to='/oblivion-store/' onClick={() => toggleSearch("flex")}>
                         <img src="img/icons/close-drawer.svg" alt="закрыть" />
                     </Link>Избранное
                 </h1>

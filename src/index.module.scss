@@ -41,7 +41,7 @@ html::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 50px;
+  gap: 10px;
   width: 100%;
   @media (max-width: 820px) {
     margin: 0 10px;
@@ -50,6 +50,7 @@ html::-webkit-scrollbar {
     max-width: 1080px;
     width: 100%;
     cursor: pointer;
+    border-bottom: 3px solid transparent;
   }
   img {
     max-width: 600px;
@@ -74,13 +75,16 @@ html::-webkit-scrollbar {
   .categories {
     display: flex;
     justify-content: center;
-    gap: 75px;
+    gap: 0 75px;
     a {
       font-weight: 700;
       font-size: 24px;
       line-height: 29px;
       color: $font-color;
     }
+  }
+  .active {
+    border-bottom: 3px solid $font-color;
   }
   .container {
     display: flex;
