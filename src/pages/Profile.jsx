@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react";
-import ContextData from "../Context";
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -10,9 +9,6 @@ import orderStyles from "../components/LastOrdersItems/LastOrdersItems.module.sc
 import styles from "../index.module.scss"
 
 export function Profile() {
-    const { toggleSearch } = React.useContext(ContextData)
-    toggleSearch("none")
-
     const [lastOrders, setLastOrders] = useState([])
     const [switchOrdersList, setSwitchOrdersList] = useState([false, "Показать все заказы?"])
     const [userData, getUserData] = useState([])
@@ -40,7 +36,7 @@ export function Profile() {
     return (
         <div className={styles.catalog}>
             <h1 style={{ margin: '0' }}>
-                <Link to='/oblivion-store/' onClick={() => { toggleSearch("flex") }}> <img src="img/icons/close-drawer.svg" alt="закрыть" /></Link>Профиль
+                <Link to='/oblivion-store/' > <img src="img/icons/close-drawer.svg" alt="закрыть" /></Link>Профиль
             </h1>
 
             <div className={styles.container}>

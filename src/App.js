@@ -12,6 +12,7 @@ import { Profile } from "./pages/Profile";
 
 import styles from "./index.module.scss"
 import { NotFound } from "./pages/NotFound";
+import ItemPage from "./pages/ItemPage";
 
 function App() {
   const [itemsList, setItemsList] = useState([])
@@ -19,7 +20,6 @@ function App() {
   const [drawerItems, setDrawerItems] = useState([])
   const [favoriteItems, setFavoriteItems] = useState([])
   const [searchInput, setSearchInput] = useState("")
-  const [searchAppearance, setSearchAppearance] = useState("normal")
   const [activeCategory, setActiveCategory] = useState("bags")
   const navigate = useNavigate()
   const [wasLoaded, setWasLoaded] = useState(false)
@@ -131,10 +131,6 @@ function App() {
     return drawerItems[0] ? drawerItems.reduce((sum, obj) => sum + obj.price, 0) : 0;
   }
 
-  const toggleSearch = (value) => {
-    setSearchAppearance(value)
-  }
-
   const isAdded = (id) => {
     return drawerItems.some(item => item.id === id)
   }
@@ -152,8 +148,6 @@ function App() {
     searchInput,
     setSearchInput,
     getTotalPrice,
-    searchAppearance,
-    toggleSearch,
     toggleDrawer,
     drawerItems,
     setDrawerItems,
@@ -169,7 +163,8 @@ function App() {
         <Drawer />
         <Header />
         <Routes>
-          <Route path="oblivion-store" element={<Catalog />} />
+          <Route path="oblivion-store/" element={<Catalog />} />
+          <Route path="oblivion-store/item=:id" element={<ItemPage />} />
           <Route path="oblivion-store/favorites" element={<Favorites />} />
           <Route path="oblivion-store/profile" element={<Profile />} />
           <Route path="oblivion-store/*" element={<NotFound />} />

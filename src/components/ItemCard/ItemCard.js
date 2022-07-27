@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./ItemCard.module.scss"
 import ContextData from "../../Context";
+import { Link } from "react-router-dom";
+
 
 export const ItemCard = ({ item }) => {
     const { isAdded, isFavorite, addToFavorite, addToDrawer } = React.useContext(ContextData)
@@ -8,7 +10,9 @@ export const ItemCard = ({ item }) => {
     return (
         <div className={styles.catalog__item}>
             <img onClick={() => { addToFavorite(item) }} src={isFavorite(item.id) ? "img/icons/heart-checked.svg" : "img/icons/heart-unchecked.svg"} alt="избранное" />
-            <img src={item.itemImage} alt="фото товара" />
+            <Link to={`/oblivion-store/item=${item.id}`}>
+                <img src={item.itemImage} alt="фото товара" />
+            </Link>
             <div>
                 <h3>{item.title}</h3>
                 <p>Цена</p>

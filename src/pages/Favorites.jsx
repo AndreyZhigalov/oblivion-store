@@ -6,15 +6,14 @@ import ContextData from "../Context";
 import styles from "../index.module.scss"
 
 export function Favorites() {
-    const { searchInput, favoriteItems, toggleSearch } = React.useContext(ContextData)
-    toggleSearch("none")
+    const { searchInput, favoriteItems } = React.useContext(ContextData)
 
     return (
         <div className={styles.catalog}>
             {searchInput.length > 0 ?
                 <h2 style={{ margin: '0' }}>{`Поиск по запросу "${searchInput}"`}</h2> :
                 <h1 style={{ margin: '0' }}>
-                    <Link to='/oblivion-store/' onClick={() => toggleSearch("flex")}>
+                    <Link to='/oblivion-store/'>
                         <img src="img/icons/close-drawer.svg" alt="закрыть" />
                     </Link>Избранное
                 </h1>

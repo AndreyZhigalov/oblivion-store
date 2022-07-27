@@ -1,0 +1,122 @@
+.itempage_wrapper {
+  margin: auto;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-template-rows: repeat(auto-fit, max-content);
+
+  img {
+    width: 100%;
+    max-width: 500px;
+    grid-row: 1/4;
+    grid-column: 1/2;
+  }
+  h2 {
+    margin: 10px;
+    grid-row: 1/2;
+    grid-column: 2/4;
+  }
+  .buttons_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    grid-row: 2/3;
+    grid-column: 2/4;
+    h3 {
+      margin: 10px;
+      font-size: 30px;
+      margin: 0% 10px;
+      width: max-content;
+    }
+    span {
+      border: 1px solid gray;
+      padding: 5px 10px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      gap: 10px;
+      cursor: pointer;
+      img {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
+    .added {
+      background-color: rgb(255, 231, 154);
+    }
+    .favorite {
+      background-color: rgb(255, 231, 154);
+    }
+  }
+  p {
+    margin: 0px 10px;
+    grid-row: 3/4;
+    grid-column: 2/4;
+  }
+}
+
+@media (max-width: 820px) {
+  .itempage_wrapper {
+    img {
+      margin: auto;
+      grid-row: 1/2;
+      grid-column: 1/2;
+    }
+    h2 {
+      text-align: center;
+      grid-row: auto;
+      grid-column: 1/2;
+    }
+    .buttons_wrapper {
+      h3 {
+        margin: 0% 10px;
+      }
+      grid-row: auto;
+      grid-column: 1/2;
+    }
+
+    p {
+      margin: 20px 40px;
+      grid-row: auto;
+      grid-column: 1/2;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .itempage_wrapper {
+    img {
+      grid-row: auto;
+      grid-column: 1/2;
+    }
+    h2 {
+      text-align: start;
+      grid-row: auto;
+      grid-column: 1/2;
+    }
+    .buttons_wrapper {
+      h3 {
+        margin: 0% 10px;
+        width: 100%;
+      }
+      grid-row: auto;
+      grid-column: 1/2;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    p {
+      margin: 20px 10px 0;
+      grid-row: auto;
+      grid-column: 1/2;
+    }
+  }
+}
+h1 {
+  text-align: center;
+  width: 100%;
+}
