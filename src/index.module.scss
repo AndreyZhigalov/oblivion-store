@@ -59,6 +59,10 @@ html::-webkit-scrollbar {
   h1 {
     max-width: 1080px;
     width: 100%;
+    text-align: left;
+    @media (max-width: 420px) {
+      text-indent: 20%;
+    }
     img {
       width: 30px;
       height: 30px;

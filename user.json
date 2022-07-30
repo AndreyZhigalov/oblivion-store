@@ -1,0 +1,22 @@
+[
+  {
+    "dbID": "1",
+    "personalID": "1",
+    "name": "Василий",
+    "lastName": "Василевский",
+    "avatar": "https://i.pravatar.cc/150?img=54",
+    "phone": "8(800)-555-35-35",
+    "address": "ул.Пушкина д.40б г.Москва Россия",
+    "paycard": [4858925242653871, "01/12", "Vasiliy Vasilevskiy", 235],
+    "email": "bigvasya@hotmail.com",
+    "septimPayCard": [9868452936581254, "03/12", "Vasiliy Vasilevskiy", 546],
+    "lastOrders": [],
+    "deliveryList": [
+      { "id": "9", "location": "Прибыло на место вручения" },
+      { "id": "10", "location": "Ожидает отправки" },
+      { "id": "11", "location": "Прибыло в сортировочный цех" }
+    ],
+    "deposite": 2345,
+    "discount": 37
+  }
+]
