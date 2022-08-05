@@ -135,9 +135,11 @@ export const Profile: React.FC = () => {
               );
             })
             .reverse()}
-          <p
-            className={orderStyles.orderButton}
-            onClick={showRestOrders}>{`${switchOrdersList[1]}`}</p>
+          {lastOrders.length > 3 && (
+            <p
+              className={orderStyles.orderButton}
+              onClick={showRestOrders}>{`${switchOrdersList[1]}`}</p>
+          )}
           {switchOrdersList[0] && (
             <div>
               {lastOrders
